@@ -2,7 +2,7 @@
   <!-- Top Navbar -->
   <div class="navbar">
     <div class="navbar-bg"></div>
-    <div class="navbar-inner">
+    <div class="navbar-inner" id="order-nav">
       <div class="left">
         <a href="#" class="link icon-only panel-open" data-panel="left">
           <i class="icon f7-icons if-not-md">menu</i>
@@ -10,112 +10,33 @@
         </a>
 
         <div class="title">My Order</div>
-
-      </div>
-    
-      <div class="block">
-        <a
-          href="#view-past-orders"
-          class="
-            col
-            button button-small button-round button-fill
-            orders-button
-            tab-link
-          "
-        >
-          <i class="icon f7-icons if-not-md orders-icon">receipt</i>
-          <i class="icon material-icons if-md orders-icon">receipt</i
-          ><span> </span>Orders</a
-        >
       </div>
     </div>
   </div>
 
   <!-- Scrollable page content-->
   <div class="page-content">
-    <div class="list media-list" id="order-page">
+    <div class="list media-list inset" id="pastOrders-page">
       <ul>
-        <li>
-          <div class="item-content">
-            <div class="item-media serving-counter">
-              <!-- serving - counter -->
-              <svg
-                width="30"
-                height="28"
-                viewbox="0 0 30 28"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M23.5 0H5.5C2.46243 0 0 2.46243 0 5.5V21.5C0 24.5376 2.46243 27 5.5 27H23.5C26.5376 27 29 24.5376 29 21.5V5.5C29 2.46243 26.5376 0 23.5 0Z"
-                  fill="#9B9C95"
-                />
-                <path
-                  d="M15.3613 21H14.8867V8.80078L11.2129 10.1807V9.66211L15.2646 8.16797H15.3613V21Z"
-                  fill="#0A0A0A"
-                />
-              </svg>
-            </div>
+        <li class="accordion-item">
+          <a class="item-content item-link" href="#">
             <div class="item-inner">
-              <div class="item-title-row">
-                <div class="item-title">Tiramisu</div>
-                <div class="item-after order-price">6,30 €</div>
-              </div>
-              <div class="item-subtitle">Dessert</div>
+              <div class="item-title">Past-Orders</div>
+            </div>
+          </a>
+          <div class="accordion-item-content">
+            <div class="block">
+              <ul id="pastOrders-list">
+                <pre>   Ordered but unpaid dishes go here!   </pre>
+              </ul>
             </div>
           </div>
         </li>
-        <li>
-          <div class="item-content">
-            <div class="item-media serving-counter">
-              <!-- serving - counter -->
-              <svg
-                width="30"
-                height="28"
-                viewbox="0 0 30 28"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M23.5 0H5.5C2.46243 0 0 2.46243 0 5.5V21.5C0 24.5376 2.46243 27 5.5 27H23.5C26.5376 27 29 24.5376 29 21.5V5.5C29 2.46243 26.5376 0 23.5 0Z"
-                  fill="#9B9C95"
-                />
-                <path
-                  d="M15.3613 21H14.8867V8.80078L11.2129 10.1807V9.66211L15.2646 8.16797H15.3613V21Z"
-                  fill="#0A0A0A"
-                />
-              </svg>
-            </div>
-            <div class="item-inner">
-              <div class="item-title-row">
-                <div class="item-title">0.5 l San Pellegrino</div>
-                <div class="item-after order-price">3,90 €</div>
-              </div>
-              <div class="item-subtitle">Drink</div>
-            </div>
-          </div>
-        </li>
-        <li>
-          <div class="item-content">
-            <div class="item-inner">
-              <div class="item-title-row">
-                <div class="item-title" id="sub-total">Subtotal</div>
-                <div class="item-after" id="sub-price">10,20 €</div>
-              </div>
-            </div>
-          </div>
-        </li>
-        <li>
-          <div class="item-content">
-            <div class="item-inner">
-              <div class="item-title-row">
-                <div class="item-title" id="total">Total</div>
-                <div class="item-after" id="price">27,90 €</div>
-              </div>
-              <div class="item-subtitle">Subtotal + Past Orders</div>
-            </div>
-          </div>
-        </li>
+      </ul>
+    </div>
+    <div class="list media-list inset" id="order-page">
+      <ul id="order-list">
+        <pre>   Your current order is empty!   </pre>
       </ul>
     </div>
 
@@ -124,6 +45,7 @@
         href="#view-order-empty"
         class="col button button-large button-fill button-raised tab-link"
         id="order-button"
+        onclick="displayOverview();"
         >Order</a
       >
     </div>

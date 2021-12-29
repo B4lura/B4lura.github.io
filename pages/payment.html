@@ -8,45 +8,38 @@
           <i class="icon material-icons if-md">menu</i>
         </a>
         <div class="title-large-text">Payment</div>
-
       </div>
       <!--<div class="title sliding">Code Menu App</div>-->
-
     </div>
   </div>
   <div class="page-content">
+    <!--order list-->
     <div class="wrapper">
       <div class="card">
         <div class="card-header">Orders</div>
-        <div class="card-content card-content-padding">
-          <span class="dish">Pizza Regina</span>
-          <span class="price">12,50€</span>
-          <br>
-          <span class="dish">0.2 l Sauvignon blanc</span>
-          <span class="price">5,20€</span>
-          <br>
-          <span class="dish">0.5 l San Pellegrino</span>
-          <span class="price">3,90€</span>
-          <br>
-          <span class="dish">Tiramisu</span>
-          <span class="price">6,30€</span>
-          <br>
+        <div class="card-content card-content-padding payment-card">
+          <!-- Order Summary goes here! -->
         </div>
         <div class="card-footer">
           <div class="full-width">
             <span class="dish">Total</span>
-            <span class="price">27,90€</span>
-            <br>
+            <span class="price payment-price">27,90€</span>
+            <br />
           </div>
-  
         </div>
       </div>
+      <!--Payment options-->
       <div class="card">
         <div class="list">
           <ul>
             <li>
               <label class="item-radio item-radio-icon-start item-content">
-                <input type="radio" name="payment-radio" value="Phone" checked />
+                <input
+                  type="radio"
+                  name="payment-radio"
+                  value="Phone"
+                  checked
+                />
                 <i class="icon icon-radio"></i>
                 <div class="item-inner">
                   <div class="item-title">Pay by phone</div>
@@ -65,18 +58,22 @@
           </ul>
         </div>
       </div>
-      
+
       <div class="center-button">
         <a
-          href="#view-homescreen-hint"
-          class="col button button-large button-fill button-raised order-button tab-link"
-          id="order-button"
+          href="#view-homescreen"
+          class="
+            col
+            button button-large button-fill button-raised
+            order-button
+            tab-link
+          "
+          id="confirm-button"
+          onclick="app.tab.show('#view-homescreen');setItems('doesntMatter', 'paymentScreen');
+          deleteDish('All');loadTo('orderHistory');"
           >Confirm</a
         >
       </div>
-    </div>      
- 
+    </div>
   </div>
 </div>
-
-

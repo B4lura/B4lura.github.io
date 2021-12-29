@@ -13,13 +13,44 @@
 
 /* Your app custom styles here */
 
+/* NAVIGATION-DRAWER SCREEN */
+.sidenav-title {
+  margin-left: 60px;
+}
+
+/* If width < 767px = change navbar height */
+@media only screen and (max-width: 767px) {
+  .nav-drawer {
+    width: 84.44%;
+  }
+  .nav-item {
+    width: 84.44%;
+  }
+}
+.navigation-drawer {
+  height: 50px;
+}
+/* HOME-VIEW SCREEN */
+.call-a-waiter,
+.dnd {
+  background-color: --f7-theme-color;
+}
+
 /*Preorder screen flex container*/
 .button-container {
+  padding: 25px;
   height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-around;
+}
+
+/*DISH OVERVIEW SCREEN*/
+
+.add_btns {
+  color: #bbd01b;
+  cursor: pointer;
 }
 
 /*QR Code Picture adjustment*/
@@ -70,26 +101,45 @@
 
 /* ORDER SCREEN */
 
-/*extra height so bottom button doesn't cover important content
+/*extra height so bottom button doesn't cover important content*/
+
 #order-page {
-  min-height: 555px;
-} */
+  margin-bottom: 81px;
+}
+#pastOrders-list {
+  margin-top: 10px;
+}
 
 /*style for past-orders button*/
-.orders-button {
+#filter-button {
   padding: 15px 14px 15px 10px;
   font-size: 11px;
+  margin: 0px 10px;
 }
 
 /*style for order icon*/
 .orders-icon {
   padding: 0px 1.5px 1px 2.5px;
-  font-size: 15px;
+}
+
+#order-nav {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
 
 /*style for serving-counter*/
-.serving-counter {
-  margin: 2.5px -10px 0px 0px;
+#serving-count1,
+#serving-count2 {
+  font-size: 18px;
+  font-weight: lighter;
+  color: rgba(0, 0, 0, 0.8);
+  background-color: #9b9c95;
+  border-radius: 5.5px;
+  width: 29px;
+  height: 27px;
+  margin-top: 7px;
+  margin-left: -25px;
 }
 
 /*style for order-price*/
@@ -101,16 +151,39 @@
 #sub-total {
   margin: 5px 0px 5px 0px;
 }
-#sub-price {
+#sub-price,
+#price {
   margin-right: 15px;
 }
 
 /*style for action button at bottom of screen row*/
 #order-button,
-#add-button {
+#confirm-button,
+#pay-button,
+#paylater-button,
+#add-button,
+#viewOrder-button {
   width: 92vw;
   position: fixed;
   bottom: 75px;
+
+  /* centering element */
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+}
+
+#reset {
+  margin-top: calc(100vh - 440.9px);
+}
+
+#pay-button {
+  bottom: 150px;
+}
+
+#viewOrder-button {
+  z-index: 20;
+  display: none;
 }
 
 /* PAST-ORDER SCREEN */
@@ -128,24 +201,84 @@
 
 /* DETAILED-VIEW SCREEN */
 
+.detailed-title {
+  margin-top: 10px;
+}
+
+#detailed-stars {
+  margin-left: 15px;
+}
 /*extra height so button doesn't cover important content*/
 #last-card {
-  min-height: 170px;
+  min-height: 160px;
 }
 
 #item-counter {
   /* centering element */
-  margin-left: calc(50vw - 86.5px);
+  margin-left: calc(50% - 62.5px);
+  margin-top: 10px;
+  margin-bottom: 20px;
 }
 
-#picture-wrapper {
+.detailed-wrapper {
   position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
-
-#detailed-arrow {
+.transparent-nav {
   position: absolute;
-  left: 10px;
-  top: 10px;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 64px;
+}
+/* If width < 767px = change navbar height */
+@media only screen and (max-width: 767px) {
+  .transparent-nav {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 56px;
+  }
+}
+.t_navbar-background {
+  position: absolute;
+  opacity: 0.1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+  background: var(--f7-navbar-bg-color);
+  background-image: var(--f7-navbar-bg-image, var(--f7-bars-bg-image));
+  background-color: var(--f7-navbar-bg-color, var(--f7-bars-bg-color));
+  transition-property: transform;
+}
+.t_navbar-inner {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 1;
+  color: #9bac16;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+  padding: 15px;
+  transform: translate3d(0, 0, 0);
+  z-index: 10;
+}
+.picture-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  position: relative;
+  box-sizing: border-box;
 }
 
 /*Style Cards CSS*/
@@ -206,20 +339,67 @@
 /*Onboarding Screens*/
 
 /*Screen 1*/
+.page-onboarding {
+  position: relative;
+}
 
-#onboarding-title-image {
+.o-transparent-nav {
   position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 56px;
+}
+
+.o-t_navbar-background {
+  position: absolute;
+  opacity: 0.05;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+  background: var(--f7-navbar-bg-color);
+  background-image: var(--f7-navbar-bg-image, var(--f7-bars-bg-image));
+  background-color: var(--f7-navbar-bg-color, var(--f7-bars-bg-color));
+  transition-property: transform;
+}
+.o-t_navbar-inner {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  padding: 10px;
+  transform: translate3d(0, 0, 0);
+  z-index: 10;
+}
+
+.onboarding-1 {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+}
+.logo-container {
+  flex: 1 1 auto;
+}
+
+.onboarding-title-image {
+  margin-top: 10vh;
   width: 293px;
   height: 90px;
-  left: 0;
-  right: 0;
-  margin-left: auto;
-  margin-right: auto;
-  top: 35px;
   transform: rotate(1.59deg);
 }
 
-#onboarding-splash {
+/*.onboarding-splash {
   position: absolute;
   width: 100%;
   height: 100%;
@@ -227,33 +407,20 @@
   right: 0;
   margin-left: auto;
   margin-right: auto;
-}
+}*/
 
-#onboarding-button {
-  position: absolute;
-  left: 0;
-  right: 0;
-  margin-left: auto;
-  margin-right: auto;
-  top: 84.95%;
-  width: 31.38%; /* Need a specific value to work */
-  height: 4.91%;
+.onboarding-button {
   background: #3a3b38;
   color: #bbd01b;
   filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.8));
-}
-
-#onboarding-dots {
-  position: absolute;
-  left: 0;
-  right: 0;
-  margin-left: auto;
-  margin-right: auto;
-  bottom: 3%;
+  margin-bottom: 5vh;
 }
 
 /*Screen 2*/
 
+.onboarding-toolbar {
+  height: 56px;
+}
 .onboarding-titles {
   position: flex;
   text-align: center;
@@ -272,121 +439,157 @@
   padding-left: 20px;
 }
 
-.custom-card {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  text-align: center;
-  margin: 10%;
-  font-size: larger;
+/*diet cards on onboarding screen*/
+#diet-cards {
+  display: grid;
+  grid-template-columns: auto auto auto;
+  margin: auto;
+}
 
+/*diet cards on onboarding screen*/
+#allergy-cards {
+  display: grid;
+  grid-template-columns: auto auto auto;
+  margin: auto;
+}
+
+.diet-align {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.allergy-align {
+  text-align: center;
+  margin-top: 20px;
 }
 
 /*Screen 3*/
 
 .onboard-chips-selected {
-
   /* On Surface / Disabled */
 
   color: #bdbc60;
 
   background: rgba(187, 208, 27, 0.08);
   /* Alley light green */
+}
 
- 
+.chip-outline {
+  margin-bottom: 15px;
+}
+
+.chip-container {
+  margin-top: 40px;
+  padding: 5vh 10vw;
+  /* height: calc(100vh - 156px); */
+}
+
+#done {
+  margin-right: 15px;
 }
 
 /*Feedback Screen*/
 
-/* .feedblur {
-  filter: blur(10px);
-  -webkit-filter: blur(10px);
-  border-style: none;
-} */
-
-/* Position text in the middle of the page/image */
-.feedcard {
+.feedback {
   position: fixed;
-  width: 77%;
-  height: 60%;
-  left: 0;
-  right: 0;
-  margin: 0 auto;
-  top: 18%;
-  z-index: 3;
-  opacity: 1;
-}
-
-.feedcontainer {
-  position: relative;
   width: 100%;
   height: 100%;
-  left: 0;
-  right: 0;
-  margin: 0 auto;
 }
 
-.feedtitle {
+.page-feedback {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.feedcard {
+  position: relative;
+  width: 77%;
+  height: 60%;
+  font-size: var(--f7-card-font-size);
+  margin-top: var(--f7-card-margin-vertical);
+  margin-bottom: var(--f7-card-margin-vertical);
+  margin-left: calc(
+    var(--f7-card-margin-horizontal) + var(--f7-safe-area-left)
+  );
+  margin-right: calc(
+    var(--f7-card-margin-horizontal) + var(--f7-safe-area-right)
+  );
+  box-shadow: var(--f7-card-box-shadow);
+}
+
+.feed-background {
   position: absolute;
-  left: 4.75%;
-  top: 100%;
+  opacity: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+  border-radius: var(--f7-card-border-radius);
+  background: var(--f7-card-bg-color);
+  background-color: var(--f7-card-bg-color, var(--f7-card-bg-color));
+}
+.feed-inner {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  /* align-items: center; */
+  flex-direction: column;
+  justify-content: space-around;
+  box-sizing: border-box;
+  padding: 10px;
+  z-index: 10;
+}
+
+/* Position text in the middle of the page/image */
+
+.feedtitle {
   font-style: normal;
   font-weight: 500;
   font-size: 32px;
   /* final color palette/white */
   color: #fcfef2;
   mix-blend-mode: normal;
+  margin: 0;
 }
 
 .feedcontent-1 {
-  position: absolute;
-  left: 7.75%;
-  top: 255.85%;
   font-style: normal;
   font-weight: bold;
   font-size: 18px;
-  line-height: 21px;
   /* Burntpizza/Burntpizza white */
   color: #f8f3df;
+  margin-left: 20px;
 }
 
 .feedcontent-2 {
-  position: absolute;
-  left: 7.75%;
-  top: 410%;
   font-style: normal;
   font-weight: bold;
   font-size: 16px;
-  line-height: 19px;
   /* final color palette/medium Light brown */
   color: #9b9c95;
+  margin-left: 20px;
 }
 
 .rating {
-  position: absolute;
-  left: 36.5%;
-  right: 35%;
-  margin: 0 auto;
-  top: 785%;
+  align-self: center;
 }
 .feedbutton {
-  position: absolute;
-  left: 20.5px;
-  right: 20.53px;
-  margin: 0 auto;
-  top: 950%;
+  align-self: center;
+  width: 95%;
 }
 
 .feedcontent-3 {
-  position: absolute;
-  left: 117px;
-  right: 115px;
-  margin: 0 auto;
-  top: 1115%;
   font-style: normal;
   font-weight: bold;
   font-size: 16px;
-  line-height: 19px;
   /* identical to box height */
   display: flex;
   align-items: center;
@@ -395,8 +598,13 @@
   /* final color palette/white */
   color: #fcfef2;
   mix-blend-mode: normal;
+  margin-top: 10px;
 }
 
- #common-toolbar {
-   display: none;
- }
+#common-toolbar {
+  display: none;
+}
+
+.chip-margin {
+  margin: 5px;
+}

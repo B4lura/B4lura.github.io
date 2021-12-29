@@ -20,16 +20,28 @@ var routes = [
     url: "./pages/about.html",
   },
   {
+    path: "/entertainment/",
+    url: "./pages/entertainment.html",
+  },
+  {
+    path: "/order-history/",
+    url: "./pages/order-history.html",
+  },
+  {
+    path: "/restaurant-info/",
+    url: "./pages/restaurant-info.html",
+  },
+  {
+    path: "/diet/",
+    url: "./pages/diet.html",
+  },
+  {
     path: "/form/",
     url: "./pages/form.html",
   },
   {
     path: "/catalog/",
     componentUrl: "./pages/catalog.html",
-  },
-  {
-    path: "/homescreen-hint/",
-    url: "./pages/homescreen-hint.html",
   },
   {
     path: "/product/:id/",
@@ -74,6 +86,10 @@ var routes = [
   {
     path: "/feedback/",
     url: "./pages/feedback.html",
+  },
+  {
+    path: "/order-history/",
+    url: "./pages/order-history.html",
   },
   {
     path: "/dynamic-route/blog/:blogId/post/:postId/",
@@ -127,7 +143,6 @@ var routes = [
     },
   },
 
-  
   // Default route (404 page). MUST BE THE LAST
   {
     path: "(.*)",

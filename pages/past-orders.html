@@ -5,7 +5,7 @@
     <div class="navbar-bg"></div>
     <div class="navbar-inner">
       <div class="left">
-        <a href="#view-order" class="tab-link">
+        <a href="" class="tab-link" onclick="app.tab.show('#view-order')">
           <i class="icon f7-icons if-not-md">arrow_back</i>
           <i class="icon material-icons if-md">arrow_back</i>
         </a>
@@ -14,73 +14,11 @@
       <div class="title">Past Orders</div>
     </div>
   </div>
-
   <!-- Scrollable page content-->
   <div class="page-content">
-    <div class="list media-list">
-      <ul>
-        <li>
-          <div class="item-content">
-            <div class="item-media detailed">
-              <img
-                src="assets/26167838_318335158650239_7907250422230334682_n.jpg"
-                width="61"
-              />
-            </div>
-            <div class="item-inner">
-              <div class="item-title-row">
-                <div class="item-title">Pizza Regina</div>
-                <a
-                  href="#"
-                  class="
-                    col
-                    button button-small button-round button-outline
-                    order-again
-                  "
-                  >Order Again</a
-                >
-              </div>
-              <div class="item-subtitle">12,50 €</div>
-              <div class="item-after">Order #1</div>
-            </div>
-          </div>
-        </li>
-        <li>
-          <div class="item-content">
-            <div class="item-media detailed">
-              <img
-                src="assets/26167838_318335158650239_7907250422230334682_n.jpg"
-                width="61"
-              />
-            </div>
-            <div class="item-inner">
-              <div class="item-title-row">
-                <div class="item-title">0.2 l Sauvignon blanc</div>
-                <a
-                  href="#"
-                  class="
-                    col
-                    button button-small button-round button-outline
-                    order-again
-                  "
-                  >Order Again</a
-                >
-              </div>
-              <div class="item-subtitle">5,20 € €</div>
-              <div class="item-after">Order #1</div>
-            </div>
-          </div>
-        </li>
-        <li>
-          <div class="item-content">
-            <div class="item-inner">
-              <div class="item-title-row">
-                <div class="item-title" id="sub-total">Total</div>
-                <div class="item-after" id="sub-price">17,70 €</div>
-              </div>
-            </div>
-          </div>
-        </li>
+    <div class="list media-list" id="pastOrders-page">
+      <ul id="pastOrders-list">
+        You have not ordered anything yet!
       </ul>
     </div>
   </div>
