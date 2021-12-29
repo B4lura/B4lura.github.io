@@ -38,7 +38,7 @@
 
 /*Preorder screen flex container*/
 .button-container {
-  padding: 25px;
+  /* padding: 25px; */
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -103,9 +103,17 @@
 
 /*extra height so bottom button doesn't cover important content*/
 
-#order-page {
+#pastOrders-page {
   margin-bottom: 81px;
 }
+
+#pastOrders-list,
+#order-list,
+#orderHistory-list {
+  padding: 0;
+  padding-bottom: 5px;
+}
+
 #pastOrders-list {
   margin-top: 10px;
 }
@@ -145,6 +153,18 @@
 /*style for order-price*/
 .order-price {
   margin: 5px 15px -5px 0px;
+}
+
+#totalPast {
+  margin: 5px 0px 5px -15px;
+}
+
+#totalPastPrice {
+  margin-right: 0px;
+}
+
+.accordian-title {
+  margin-bottom: 0px;
 }
 
 /*style for sub-total row*/

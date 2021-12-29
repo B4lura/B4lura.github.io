@@ -49,6 +49,7 @@ function init() {
 
 //cart holds last number of items upon refresh.
 onLoadOrderNumbers();
+// loadTo("orderHistory");
 //===========================================================================================================================================================================================================================
 
 //show bottom toolbar
@@ -135,14 +136,20 @@ function displayOrders() {
   let orderItems = localStorage.getItem("dishesInOrder");
   let orderTotal = localStorage.getItem("totalCost");
   let orderNumber = localStorage.getItem("orderNumbers");
+  let pastOrdersItems = localStorage.getItem("pastOrders");
+
   orderTotal = parseFloat(orderTotal);
   orderItems = JSON.parse(orderItems);
   orderNumber = JSON.parse(orderNumber);
+  pastOrdersItems = JSON.parse(pastOrdersItems);
 
   if (orderNumber > 0 && orderItems != null) {
+    //grab total from pastOrders
+    let totalPastOrders = loadTo("pastOrders");
+
+    //putting relevant stuff on orderList
     orderList.innerHTML = "";
 
-    //can't
     Object.values(orderItems).map((item) => {
       orderList.innerHTML +=
         '<li class="swipeout"><div class="item-content swipeout-content"><div class="item-media serving-counter"><!-- serving - counter --><i class="icon f7-icons if-not-md"><span class="badge color-blue" id="serving-count1">' +
@@ -177,7 +184,9 @@ function displayOrders() {
       <div class="item-inner">
         <div class="item-title-row">
           <div class="item-title" id="total">Total</div>
-          <div class="item-after" id="price">${orderTotal.toFixed(2)} €</div>
+          <div class="item-after" id="price">${(
+            orderTotal + totalPastOrders
+          ).toFixed(2)} €</div>
         </div>
         <div class="item-subtitle">Subtotal + Past Orders</div>
       </div>
@@ -187,8 +196,10 @@ function displayOrders() {
   } else {
     orderButton.classList.remove("tab-link");
     orderList.innerHTML = ``;
-    orderList.innerHTML += "<pre>   Your current order is empty!   </pre>";
+    orderList.innerHTML += "Your current order is empty!";
   }
+
+  loadTo("pastOrders");
 }
 
 //load display overview page contents
@@ -441,11 +452,11 @@ function setItems(dish, from) {
       }
       orderItems[dish.id].inOrder += stpValueInt;
     } else {
-      dish.inOrder = stpValueInt;
+      dish.inOrder = 1;
       orderItems = {
         [dish.id]: dish,
       };
-      dish.inOrder = 1;
+      orderItems[dish.id].inOrder += stpValueInt - 1;
     }
 
     localStorage.setItem("dishesInOrder", JSON.stringify(orderItems));
@@ -628,10 +639,32 @@ function loadDetailedView(plate) {
 
   //load rest of elements on page: using data from local storage
   Object.values(detailedItems).map((detailed) => {
-    let buttonPrice = parseFloat(detailed.price * stpValueInt);
     detailedViewImg.src = `${detailed.imgSrc}`;
     detailedViewTitle.innerHTML = `${detailed.name}`;
     detailedViewDesc.innerHTML = `${detailed.description}`;
+    //add-to-order button
+    updateDetailedPrice();
+  });
+  //update button price when stepper is pressed
+  stepperDown.addEventListener("click", () => {
+    updateDetailedPrice();
+  });
+  stepperUp.addEventListener("click", () => {
+    updateDetailedPrice();
+  });
+}
+
+function updateDetailedPrice() {
+  console.log("updateDetailedPrice() called!");
+  let addToOrderBtn = document.querySelector(".detailedBtn-block");
+  let detailedItems = localStorage.getItem("tempDetailedView");
+  let stepperValue = document.getElementById("stepper-value");
+
+  detailedItems = JSON.parse(detailedItems);
+  stpValueInt = parseInt(stepperValue.value);
+
+  Object.values(detailedItems).map((detailed) => {
+    let buttonPrice = parseFloat(detailed.price * stpValueInt);
     //add-to-order button
     addToOrderBtn.innerHTML = `<div class="block">
     <a
@@ -642,15 +675,6 @@ function loadDetailedView(plate) {
       >Add to order - ${buttonPrice.toFixed(2)} €
     </a>
   </div>`;
-  });
-
-  //NB: INFINITE LOOP PROBLEM! - Find better Implementation
-  //update button price when stepper is pressed
-  stepperDown.addEventListener("click", () => {
-    loadDetailedView(plate);
-  });
-  stepperUp.addEventListener("click", () => {
-    loadDetailedView(plate);
   });
 }
 
@@ -729,7 +753,7 @@ function loadTo(to) {
   pastOrdersItems = JSON.parse(pastOrdersItems);
 
   if (to == "orderHistory") {
-    if (orderHistoryItems) {
+    if (orderHistoryItems != null) {
       console.log("On my way to orderHistory!");
       orderHistoryList.innerHTML = "";
 
@@ -768,11 +792,12 @@ function loadTo(to) {
     } else {
       console.log("On my way to back home!");
       orderHistoryList.innerHTML = ``;
-      orderHistoryList.innerHTML =
-        "<pre>   Ordered and paid dishes go here!   </pre>";
+      orderHistoryList.innerHTML = "Ordered and paid dishes go here!";
     }
   } else if (to == "pastOrders") {
-    if (pastOrdersItems) {
+    //summing all orderTotals(in pastOrders) and storing value
+    let totalPastOrders = 0;
+    if (pastOrdersItems != null) {
       console.log("On my way to pastOrders!");
       pastOrdersList.innerHTML = "";
 
@@ -780,6 +805,9 @@ function loadTo(to) {
         console.log(`${key}: ${value}`);
         //print string on all even numbers
         if (key % 2 == 0) {
+          //sum the total
+          totalPastOrders += value;
+
           pastOrdersList.innerHTML += `<li>
     <div class="item-content">
       <div class="item-media detailed">
@@ -808,12 +836,26 @@ function loadTo(to) {
   </li>`;
         }
       });
+
+      pastOrdersList.innerHTML += `<li>
+    <div class="item-content">
+      <div class="item-inner">
+        <div class="item-title-row">
+          <div class="item-title" id="totalPast">Subtotal</div>
+          <div class="item-after" id="totalPastPrice">${totalPastOrders.toFixed(
+            2
+          )} €</div>
+        </div>
+      </div>
+    </div>
+  </li>`;
     } else {
       console.log("On my way to back home!");
       pastOrdersList.innerHTML = ``;
-      pastOrdersList.innerHTML =
-        "<pre>   Ordered but unpaid dishes go here!   </pre>";
+      pastOrdersList.innerHTML = "Ordered but unpaid dishes go here!";
+      totalPastOrders = 0;
     }
+    return totalPastOrders;
   }
 }
 
