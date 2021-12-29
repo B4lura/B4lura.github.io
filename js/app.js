@@ -938,6 +938,6 @@ function toggleFilter() {
 document.getElementById('dishesmenu')
 .addEventListener("click", function(event) {
   if (allergyArray.length != 0){
-    app.dialog.alert('Only dishes that comply with you dietary need are shown. To turn this off press the filter icon at the top of the screen');
+    app.dialog.alert('Only dishes that comply with you dietary needs are shown. To turn this off, press the filter icon at the top of the screen');
   }
 }, {once: true});
