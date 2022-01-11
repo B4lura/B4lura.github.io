@@ -99,12 +99,12 @@ function displayMenuTabs() {
   showDishes("Antipasti", "antipasti");
 }
 
-function activateChips(selectedChip){
-  var allChips = document.getElementsByName('menu-chips')
-  for(var i=0; i < allChips.length; i++){
-    allChips[i].classList.remove('chips-active');
+function activateChips(selectedChip) {
+  var allChips = document.getElementsByName("menu-chips");
+  for (var i = 0; i < allChips.length; i++) {
+    allChips[i].classList.remove("chips-active");
   }
-  document.getElementById(selectedChip).classList.add('chips-active');
+  document.getElementById(selectedChip).classList.add("chips-active");
 }
 
 //===========================================================================================================================================================================================================================
@@ -435,7 +435,6 @@ function compatibleDiet(ingredientDiet) {
   for (let i = 0; i < dietArray.length; i++) {
     //console.log( "It is " + dietArray[i] + " that i am " + diet[i].name +". It is " +ingredientDiet.dietCompatible[i] +" , that " +ingredientDiet.name +" matches the diet");
     if (noDietCollision && dietArray[i] && !ingredientDiet.dietCompatible[i]) {
-      console.log("Penis! ");
       noDietCollision = false;
       break;
     }
@@ -1124,12 +1123,20 @@ function checkout() {
       "You have to pay for your past orders",
       "Unable to checkout"
     );
+  } else if (pastOrdersItems && orderItems) {
+    //alert
+    app.dialog.alert(
+      "You have to pay for your past orders and you have items in your order list",
+      "Unable to checkout"
+    );
   } else {
     hideToolbar();
     showLoading(1);
     deleteDish("All");
     displayOrders();
     app.tab.show("#view-preorder");
+    //remove your dishes are being prepared
+    document.getElementById("prep").innerHTML = ``;
   }
 }
 
