@@ -296,6 +296,9 @@ function displayOverview() {
   console.log("displayOverview()  called!");
   let overviewPage = document.getElementById("overview");
   let orderTotal = localStorage.getItem("totalCost");
+
+  let totalPastOrders = loadTo("pastOrders");
+
   orderTotal = JSON.parse(orderTotal);
 
   if (orderTotal == null) {
@@ -327,7 +330,9 @@ function displayOverview() {
   <div class="block">
     <div class="block-title">
       Subtotal
-      <span style="float: right">${orderTotal.toFixed(2)} €</span>
+      <span style="float: right">${(orderTotal + totalPastOrders).toFixed(
+        2
+      )} €</span>
     </div>
   </div>
 
@@ -659,16 +664,45 @@ function setItems(dish, from) {
     localStorage.setItem("dishesInOrder", JSON.stringify(orderItems));
   } else if (from == "paymentScreen") {
     if (orderHistoryItems != undefined) {
-      orderHistoryItems = {
-        ...orderHistoryItems,
-        [Object.keys(orderHistoryItems).length + 1]: orderItems,
-        [Object.keys(orderHistoryItems).length + 2]: totalCost,
-      };
+      if (pastOrdersItems != undefined) {
+        Object.entries(pastOrdersItems).forEach(([key, value]) => {
+          Object.entries(value).forEach(([key, item]) => {
+            totalPastOrders += item.inOrder * item.price;
+          });
+        });
+
+        orderHistoryItems = {
+          ...orderHistoryItems,
+          [Object.keys(orderHistoryItems).length + 1]:
+            orderItems + pastOrdersItems,
+          [Object.keys(orderHistoryItems).length + 2]:
+            totalCost + totalPastOrders,
+        };
+      } else {
+        orderHistoryItems = {
+          ...orderHistoryItems,
+          [Object.keys(orderHistoryItems).length + 1]: orderItems,
+          [Object.keys(orderHistoryItems).length + 2]: totalCost,
+        };
+      }
     } else {
-      orderHistoryItems = {
-        [1]: orderItems,
-        [2]: totalCost,
-      };
+      if (pastOrdersItems != undefined) {
+        Object.entries(pastOrdersItems).forEach(([key, value]) => {
+          Object.entries(value).forEach(([key, item]) => {
+            totalPastOrders += item.inOrder * item.price;
+          });
+        });
+
+        orderHistoryItems = {
+          [1]: orderItems + pastOrdersItems,
+          [2]: totalCost + totalPastOrders,
+        };
+      } else {
+        orderHistoryItems = {
+          [1]: orderItems,
+          [2]: totalCost,
+        };
+      }
     }
 
     localStorage.setItem("orderHistory", JSON.stringify(orderHistoryItems));
@@ -1052,7 +1086,9 @@ function setDetailed(dish) {
 function displayPayment(from) {
   console.log("displayPayment() called!");
   let paymentList = document.querySelector(".payment-card");
+  let pastPaymentList = document.querySelector(".past-payment-card");
   let paymentPrice = document.querySelector(".payment-price");
+  let pastOrdersInner = document.querySelector(".pastOrders-inner");
   let paymentButton = document.querySelector("#confirm-button");
   let orderItems = localStorage.getItem("dishesInOrder");
   let pastOrderItems = localStorage.getItem("pastOrders");
@@ -1064,6 +1100,7 @@ function displayPayment(from) {
   pastOrderItems = JSON.parse(pastOrderItems);
   paymentList.innerHTML = "";
   paymentPrice.innerHTML = "";
+  pastPaymentList.innerHTML = "";
 
   paymentButton.removeAttribute(
     "onclick",
@@ -1075,6 +1112,9 @@ function displayPayment(from) {
   );
 
   if (from == "order") {
+    //hide pastOrders summary
+    pastOrdersInner.style.display = "none";
+
     Object.values(orderItems).map((item) => {
       dishPrice = item.inOrder * item.price;
 
@@ -1083,12 +1123,35 @@ function displayPayment(from) {
       }</span><span class="price">${dishPrice.toFixed(2)} €</span><br />`;
     });
 
-    paymentPrice.innerHTML += `${orderTotal.toFixed(2)} €`;
+    if (pastOrderItems) {
+      //hide pastOrders summary
+      pastOrdersInner.style.display = "block";
+
+      Object.entries(pastOrderItems).forEach(([key, value]) => {
+        if (key > 1) {
+          pastPaymentList.innerHTML += `<hr>`;
+        }
+        Object.entries(value).forEach(([key, item]) => {
+          totalPastOrders += item.inOrder * item.price;
+
+          pastPaymentList.innerHTML += `<span class="dish">${
+            item.name
+          }</span><span class="price">${(item.inOrder * item.price).toFixed(
+            2
+          )} €</span><br />`;
+        });
+      });
+    }
+
+    paymentPrice.innerHTML += `${(orderTotal + totalPastOrders).toFixed(2)} €`;
     paymentButton.setAttribute(
       "onclick",
-      "showLoading(1);app.tab.show('#view-homescreen');setItems('doesntMatter', 'paymentScreen');deleteDish('All');loadTo('orderHistory');displayOrders();"
+      "showLoading(1);app.tab.show('#view-homescreen');setItems('doesntMatter', 'paymentScreen');deleteDish('All');deleteDish('pastOrders');loadTo('orderHistory');displayOrders();"
     );
   } else if (from == "pastOrders") {
+    //hide pastOrders summary
+    pastOrdersInner.style.display = "none";
+
     Object.entries(pastOrderItems).forEach(([key, value]) => {
       Object.entries(value).forEach(([key, item]) => {
         dishPrice = item.inOrder * item.price;

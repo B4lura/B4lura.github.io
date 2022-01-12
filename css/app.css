@@ -70,6 +70,18 @@
   float: left;
 }
 
+hr {
+  display: block;
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+  margin-left: -10px;
+  margin-right: -10px;
+  overflow: hidden;
+  border-style: inset;
+  color: #3a3b38;
+  border-width: 1px;
+}
+
 .price {
   float: right;
 }
@@ -93,10 +105,13 @@
 
 /*alignment of payment screen*/
 .wrapper {
-  height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
+}
+
+.payment-options {
+  margin-bottom: 50px;
 }
 
 /* ORDER SCREEN */
@@ -532,8 +547,7 @@
 .chips-active {
   /* On Surface / Disabled */
   color: red;
-  
-  
+
   background: rgba(187, 208, 27, 0.3);
   /* Alley light green */
 }
