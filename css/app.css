@@ -457,6 +457,8 @@ hr {
 }
 .logo-container {
   flex: 1 1 auto;
+  z-index: 10;
+  vertical-align: middle;
 }
 
 .onboarding-title-image {
@@ -466,15 +468,32 @@ hr {
   transform: rotate(1.59deg);
 }
 
-/*.onboarding-splash {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  left: 0;
-  right: 0;
-  margin-left: auto;
-  margin-right: auto;
-}*/
+#splash {
+  position: fixed;
+  bottom: 3vh;
+  height: 80vh;
+  left: 5vw;
+  border-radius: 50%;
+  -moz-border-radius: 50%;
+  -webkit-border-radius: 50%;
+  -o-border-radius: 50%;
+}
+
+/* If width > 767px = change navbar height */
+@media only screen and (min-width: 767px) {
+  #splash {
+    position: fixed;
+    bottom: 4vh;
+    border-radius: 50%;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -o-border-radius: 50%;
+    left: 0;
+    right: 0;
+    margin-right: auto;
+    margin-left: auto;
+  }
+}
 
 .onboarding-button {
   background: #3a3b38;
